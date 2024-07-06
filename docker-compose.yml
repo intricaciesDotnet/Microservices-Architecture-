@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  webapplication.user.api:
+    image: ${DOCKER_REGISTRY-}webapplicationuserapi
+    container_name: user.api
+    build:
+      context: .
+      dockerfile: WebApplication.User.API/Dockerfile
+
+    ports:
+        - 5000:5000
+        - 5001:5001
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver
+    restart: unless-stopped
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+      
+    ports:
+      - 1433:1433
+  
+  
